@@ -1,7 +1,5 @@
 import React from "react";
 
-const Footer: React.FunctionComponent = () => {
+export default function Footer() {
 	return <div className="text-sky-500">This is the footer component</div>;
-};
-
-export default Footer;
+}

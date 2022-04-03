@@ -1,7 +1,5 @@
 import React from "react";
 
-const LoginForm: React.FunctionComponent = () => {
+export default function LoginForm() {
 	return <div>LoginForm</div>;
-};
-
-export default LoginForm;
+}

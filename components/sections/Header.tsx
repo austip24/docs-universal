@@ -1,7 +1,5 @@
 import React from "react";
 
-const Header: React.FunctionComponent = () => {
+export default function Header() {
 	return <div className="text-emerald-500">This is the header component</div>;
-};
-
-export default Header;
+}
