@@ -1,12 +1,12 @@
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
-import { useAuth } from "../providers/AuthProvider";
+import { useAuth } from "./AuthProvider";
 
 type Props = {
 	children: React.ReactNode;
 };
 
-export default function ProtectedRoute({ children }: Props) {
+export default function ProtectedRouteProvider({ children }: Props) {
 	const { user } = useAuth();
 	const router = useRouter();
 
