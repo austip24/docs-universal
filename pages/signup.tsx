@@ -31,7 +31,7 @@ export default function Signup() {
 	return (
 		<div className="h-screen bg-gradient-to-br from-violet-600 to-purple-600 grid place-items-center">
 			<form
-				className="flex flex-col items-center justify-center px-6 py-12 rounded-xl bg-gray-50 w-80"
+				className="flex flex-col items-center justify-center px-6 py-12 rounded-xl bg-gray-50 w-80 shadow-2xl shadow-zinc-900"
 				onSubmit={handleSignup}
 			>
 				{/* Form Header */}
