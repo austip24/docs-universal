@@ -1,13 +1,27 @@
 import React, { useState, useCallback } from "react";
 import { useEffect, useContext, createContext } from "react";
-import { auth } from "../config/firebase";
+import { auth, providers } from "../config/firebase";
 import {
 	onAuthStateChanged,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signOut,
 	UserCredential,
+	signInWithRedirect,
+	getRedirectResult,
+	GoogleAuthProvider,
+	FacebookAuthProvider,
+	TwitterAuthProvider,
+	signInWithPopup,
 } from "firebase/auth";
+import { useRouter } from "next/router";
+
+interface SupportedAuthProvider
+	extends GoogleAuthProvider,
+		FacebookAuthProvider,
+		TwitterAuthProvider {}
+
+type RedirectCallback = () => Promise<boolean>;
 
 export type User = {
 	uid?: string | null;
@@ -18,7 +32,10 @@ export type User = {
 export type AuthContextType = {
 	user?: User;
 	signup?: (email: string, password: string) => Promise<UserCredential>;
-	login?: (email: string, password: string) => Promise<UserCredential>;
+	login?: (email?: string, password?: string) => Promise<UserCredential>;
+	loginWithProvider?: (
+		provider: SupportedAuthProvider
+	) => Promise<UserCredential>;
 	logout?: () => Promise<void>;
 };
 
@@ -26,7 +43,7 @@ const AuthContext = createContext<AuthContextType>({});
 
 export const useAuth = () => useContext(AuthContext);
 
-type ProviderProps = {
+type Props = {
 	children: React.ReactNode;
 };
 
@@ -34,9 +51,10 @@ type ProviderProps = {
  * Wrapper component for authentication
  */
 
-export function AuthProvider({ children }: ProviderProps) {
+export default function AuthProvider({ children }: Props) {
 	const [user, setUser] = useState<User>(null);
 	const [loading, setLoading] = useState<boolean>(true);
+	const router = useRouter();
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -55,13 +73,23 @@ export function AuthProvider({ children }: ProviderProps) {
 		return () => unsubscribe();
 	}, []);
 
+	// create a new account
 	const signup = useCallback(async (email: string, password: string) => {
 		return await createUserWithEmailAndPassword(auth, email, password);
 	}, []);
 
+	// general email/password login provider (not google, facebook, or twitter)
 	const login = useCallback(async (email: string, password: string) => {
 		return await signInWithEmailAndPassword(auth, email, password);
 	}, []);
+
+	// login with a specified provider
+	const loginWithProvider = useCallback(
+		async (provider: SupportedAuthProvider) => {
+			return await signInWithPopup(auth, provider);
+		},
+		[]
+	);
 
 	const logout = useCallback(async () => {
 		setUser(null);
@@ -69,7 +97,9 @@ export function AuthProvider({ children }: ProviderProps) {
 	}, []);
 
 	return (
-		<AuthContext.Provider value={{ user, signup, login, logout }}>
+		<AuthContext.Provider
+			value={{ user, signup, login, loginWithProvider, logout }}
+		>
 			{loading ? null : children}
 		</AuthContext.Provider>
 	);

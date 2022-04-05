@@ -1,8 +1,10 @@
-// import { auth, provider } from "../config/firebase";
-import { useAuth } from "../providers/AuthProvider";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useAuth } from "../providers/AuthProvider";
+import { providers } from "../config/firebase";
 import { useRouter } from "next/router";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebookF } from "react-icons/fa";
 
 type Data = {
 	email: string | null;
@@ -10,7 +12,7 @@ type Data = {
 };
 
 export default function Login() {
-	const { user, login } = useAuth();
+	const { user, login, loginWithProvider: loginWithProvider } = useAuth();
 	const [data, setData] = useState<Data>({
 		email: "",
 		password: "",
@@ -18,14 +20,36 @@ export default function Login() {
 	const router = useRouter();
 
 	useEffect(() => {
-		console.log(`Login page user: ${user?.email}`);
-	}, [user]);
+		if (user) router.push("/");
+	}, [user, router]);
 
 	const handleLogin = async (e) => {
-		e.preventDefault();
 		try {
 			await login(data.email, data.password);
-			router.push("/");
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const handleGoogleLogin = async (e) => {
+		try {
+			await loginWithProvider(providers.google);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const handleFacebookLogin = async (e) => {
+		try {
+			await loginWithProvider(providers.facebook);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const handleTwitterLogin = async (e) => {
+		try {
+			await loginWithProvider(providers.twitter);
 		} catch (error) {
 			console.error(error);
 		}
@@ -34,8 +58,8 @@ export default function Login() {
 	return (
 		<div className="h-screen bg-gradient-to-br from-violet-600 to-purple-600 grid place-items-center">
 			<form
+				onSubmit={(e) => e.preventDefault()}
 				className="flex flex-col items-center justify-center px-6 py-12 rounded-xl bg-gray-50 w-80 shadow-2xl shadow-zinc-900"
-				onSubmit={handleLogin}
 			>
 				{/* Form Header */}
 				<h1 className="text-4xl font-bold text-violet-700 mb-10">Login</h1>
@@ -79,8 +103,11 @@ export default function Login() {
 						</div>
 						{/* Buttons */}
 					</div>
+
+					{/* Login with Email/Password button */}
 					<div className="flex flex-col justify-between text-center mt-2">
 						<button
+							onClick={handleLogin}
 							className="w-full py-2 text-center font-bold bg-violet-500 text-gray-50 rounded-lg hover:bg-violet-600 hover:text-white focus:ring focus:ring-violet-600 focus:bg-violet-700 ring-offset-2 ring-offset-gray-50 transition ease-in-out"
 							type="submit"
 						>
@@ -97,25 +124,45 @@ export default function Login() {
 					</div>
 					<div className="flex flex-col gap-4">
 						<h2 className="text-center font-bold">OR</h2>
-						<div>
-							{/* Google sign-in not implemented */}
+						<div className="relative" onClick={handleGoogleLogin}>
+							{/* Google Sign in */}
 							<button
-								disabled
 								type="submit"
-								className="w-full text-center bg-[#EA4335] hover:bg-[#DE3A2C] rounded-lg py-2 px-4 text-gray-50 font-bold hover:text-white focus:ring focus:ring-[#EA4335] focus:bg-[#D22D1F] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50"
+								className="w-full text-center bg-[#EA4335] hover:bg-[#DE3A2C] rounded-lg py-2 px-4 text-gray-50 font-bold hover:text-white focus:ring focus:ring-[#EA4335] focus:bg-[#D22D1F] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50 peer"
 							>
 								Sign in with Google
 							</button>
+							<FcGoogle
+								fontSize={50}
+								className="hover:bg-gray-100 peer-hover:bg-gray-100 hover:border-[#DE3A2C] peer-hover:border-[#DE3A2C] absolute bg-gray-50 top-0 left-0 border-2 border-[#EA4335] rounded-l-lg cursor-pointer"
+							/>
 						</div>
-						<div>
-							{/* Facebook sign-in not implemented */}
+						<div className="relative">
+							{/* Facebook Sign in*/}
 							<button
-								disabled
+								onClick={handleFacebookLogin}
 								type="submit"
-								className="w-full bg-[#2F66DA] hover:bg-[#275FD1] rounded-lg py-2 px-4 text-gray-50 font-bold
+								className="peer w-full bg-[#2F66DA] hover:bg-[#275FD1] rounded-lg py-2 px-4 text-gray-50 font-bold
 								hover:text-white focus:ring focus:ring-[#2F66DA] focus:bg-[#1F59CA] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50"
 							>
 								Sign in with Facebook
+							</button>
+							<FaFacebookF
+								fontSize={50}
+								className="fill-neutral-100 hover:fill-neutral-200 hover:border-[#275FD1] peer-hover:border-[#275FD1] peer-hover:fill-neutral-200 bg-[#38529A] absolute top-0 left-0  border-2 border-[#2F66DA] rounded-l-lg cursor-pointer"
+							/>
+							{/* #38529A */}
+						</div>
+						<div>
+							{/* Twitter Sign in*/}
+							<button
+								disabled
+								onClick={handleTwitterLogin}
+								type="submit"
+								className="w-full bg-[#5F96FF] hover:bg-[#5A8Aff] rounded-lg py-2 px-4 text-gray-50 font-bold
+								hover:text-white focus:ring focus:ring-[#5F96FF] focus:bg-[#5F8FFF] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50"
+							>
+								Sign in with Twitter
 							</button>
 						</div>
 					</div>

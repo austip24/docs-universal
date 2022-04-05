@@ -6,7 +6,7 @@ type Props = {
 	children: React.ReactNode;
 };
 
-export default function ProtectedRouteProvider({ children }: Props) {
+export default function ProtectedRoute({ children }: Props) {
 	const { user } = useAuth();
 	const router = useRouter();
 
