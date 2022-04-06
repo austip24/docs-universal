@@ -1,14 +1,14 @@
-import type { NextPage } from "next";
 import { Header, Footer } from "../components/sections";
 import { useAuth } from "../providers/AuthProvider";
-import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function Home() {
 	const { user, logout } = useAuth();
 
+	// DEBUG
 	useEffect(() => {
-		console.log(`Home page user: ${user?.email}`);
+		console.log("User: ");
+		console.dir(user);
 	}, [user]);
 
 	const handleLogout = async (e) => {

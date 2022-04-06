@@ -5,14 +5,15 @@ import { providers } from "../config/firebase";
 import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
+import { Header } from "../components/sections";
 
-type Data = {
+interface Data {
 	email: string | null;
 	password: string | null;
-};
+}
 
 export default function Login() {
-	const { user, login, loginWithProvider: loginWithProvider } = useAuth();
+	const { user, login, loginWithProvider } = useAuth();
 	const [data, setData] = useState<Data>({
 		email: "",
 		password: "",
@@ -20,7 +21,7 @@ export default function Login() {
 	const router = useRouter();
 
 	useEffect(() => {
-		if (user) router.push("/");
+		if (user) router.replace("/");
 	}, [user, router]);
 
 	const handleLogin = async (e) => {
@@ -57,9 +58,12 @@ export default function Login() {
 
 	return (
 		<div className="h-screen bg-gradient-to-br from-violet-600 to-purple-600 grid place-items-center">
+			<Header title="Login" />
+
+			{/* Login Form */}
 			<form
 				onSubmit={(e) => e.preventDefault()}
-				className="flex flex-col items-center justify-center px-6 py-12 rounded-xl bg-gray-50 w-80 shadow-2xl shadow-zinc-900"
+				className="flex flex-col items-center justify-center px-6 py-6 rounded-xl bg-gray-50 w-72 shadow-2xl shadow-zinc-900"
 			>
 				{/* Form Header */}
 				<h1 className="text-4xl font-bold text-violet-700 mb-10">Login</h1>
@@ -71,15 +75,15 @@ export default function Login() {
 							<input
 								id="email"
 								name="email"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-violet-700 placeholder:text-transparent"
+								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-violet-700 focus:bg-violet-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
 								type="text"
 								placeholder="Email Address"
 								onChange={(e) => setData({ ...data, email: e.target.value })}
 							/>
 							<label
 								htmlFor="email"
-								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base text-gray-400
-								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250"
+								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
+								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900"
 							>
 								Email Address
 							</label>
@@ -88,20 +92,19 @@ export default function Login() {
 							<input
 								id="password"
 								name="password"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-violet-700 placeholder:text-transparent"
+								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-violet-700 focus:bg-violet-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
 								type="password"
 								placeholder="Password"
 								onChange={(e) => setData({ ...data, password: e.target.value })}
 							/>
 							<label
 								htmlFor="password"
-								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base text-gray-400
-								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250"
+								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
+								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900"
 							>
 								Password
 							</label>
 						</div>
-						{/* Buttons */}
 					</div>
 
 					{/* Login with Email/Password button */}
@@ -114,44 +117,47 @@ export default function Login() {
 							Login
 						</button>
 						<p className="mt-3 text-xs text-gray-700 font-semibold">
-							Don&apos;t have an account?{" "}
+							New user?{" "}
 							<Link href="/signup">
 								<a className="underline font-extrabold text-violet-700 hover:text-violet-900">
-									Create an Account
+									Sign Up Here
 								</a>
 							</Link>
 						</p>
 					</div>
-					<div className="flex flex-col gap-4">
-						<h2 className="text-center font-bold">OR</h2>
-						<div className="relative" onClick={handleGoogleLogin}>
+					<div className="flex flex-col gap-2 relative">
+						<h2 className="text-center font-bold mb-2 before:h-1 before:bg-gray-300 before:w-2/5 before:inline-block before:absolute bg-gray-50 before:top-2.5 before:left-1 before:rounded-2xl after:h-1 after:bg-gray-300 after:w-2/5 after:inline-block after:absolute after:top-2.5 after:right-1 after:rounded-2xl">
+							OR
+						</h2>
+						<div className="flex flex-row-reverse" onClick={handleGoogleLogin}>
 							{/* Google Sign in */}
 							<button
 								type="submit"
-								className="w-full text-center bg-[#EA4335] hover:bg-[#DE3A2C] rounded-lg py-2 px-4 text-gray-50 font-bold hover:text-white focus:ring focus:ring-[#EA4335] focus:bg-[#D22D1F] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50 peer"
+								className="w-full text-center bg-[#EA4335] hover:bg-[#DE3A2C] rounded-lg py-2 px-4 text-gray-50 font-bold hover:text-white focus:ring focus:ring-[#EA4335] focus:bg-[#D22D1F] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50 peer text-md rounded-l-none"
 							>
 								Sign in with Google
 							</button>
 							<FcGoogle
 								fontSize={50}
-								className="hover:bg-gray-100 peer-hover:bg-gray-100 hover:border-[#DE3A2C] peer-hover:border-[#DE3A2C] absolute bg-gray-50 top-0 left-0 border-2 border-[#EA4335] rounded-l-lg cursor-pointer"
+								className="hover:bg-gray-100 peer-hover:bg-gray-100 hover:border-[#DE3A2C] peer-hover:border-[#DE3A2C]  bg-gray-50 border-2 border-[#EA4335] rounded-l-lg cursor-pointer"
 							/>
 						</div>
-						<div className="relative">
+						<div
+							className="flex flex-row-reverse"
+							onClick={handleFacebookLogin}
+						>
 							{/* Facebook Sign in*/}
 							<button
-								onClick={handleFacebookLogin}
 								type="submit"
 								className="peer w-full bg-[#2F66DA] hover:bg-[#275FD1] rounded-lg py-2 px-4 text-gray-50 font-bold
-								hover:text-white focus:ring focus:ring-[#2F66DA] focus:bg-[#1F59CA] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50"
+								hover:text-white focus:ring focus:ring-[#2F66DA] focus:bg-[#1F59CA] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50 text-md rounded-l-none"
 							>
 								Sign in with Facebook
 							</button>
 							<FaFacebookF
 								fontSize={50}
-								className="fill-neutral-100 hover:fill-neutral-200 hover:border-[#275FD1] peer-hover:border-[#275FD1] peer-hover:fill-neutral-200 bg-[#38529A] absolute top-0 left-0  border-2 border-[#2F66DA] rounded-l-lg cursor-pointer"
+								className="fill-neutral-100 hover:fill-neutral-200 hover:border-[#275FD1] peer-hover:border-[#275FD1] peer-hover:fill-neutral-200 bg-[#38529A]  border-2 border-[#2F66DA] rounded-l-lg cursor-pointer"
 							/>
-							{/* #38529A */}
 						</div>
 						<div>
 							{/* Twitter Sign in*/}

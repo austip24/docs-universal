@@ -8,12 +8,15 @@ import {
 	FacebookAuthProvider,
 	TwitterAuthProvider,
 } from "firebase/auth";
+import { SupportedAuthProvider } from "../types/auth";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+// TODO: Add configs to .env.local
 const firebaseConfig = {
 	apiKey: "AIzaSyChv186_NxqJ9qQv_2suB44_gdni33xSVc",
 	authDomain: "docs-universal.firebaseapp.com",
@@ -30,13 +33,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-export interface SupportedAuthProviders
-	extends GoogleAuthProvider,
-		FacebookAuthProvider,
-		TwitterAuthProvider {}
-
 type Providers = {
-	[key: string]: SupportedAuthProviders;
+	[key: string]: SupportedAuthProvider;
 };
 
 const providers: Providers = {

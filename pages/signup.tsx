@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../providers/AuthProvider";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { route } from "next/dist/server/router";
+import { Header } from "../components/sections";
 
 type Data = {
-	email: string | null;
-	password: string | null;
+	displayName: string;
+	email: string;
+	password: string;
 };
 
 export default function Signup() {
-	const { user, signup, login } = useAuth();
+	const { signup } = useAuth();
 	const [data, setData] = useState<Data>({
+		displayName: "",
 		email: "",
 		password: "",
 	});
@@ -21,8 +23,8 @@ export default function Signup() {
 		e.preventDefault();
 
 		try {
-			await signup(data.email, data.password);
-			router.push("/");
+			await signup(data.email, data.password, data.displayName);
+			router.replace("/");
 		} catch (error) {
 			console.error(error);
 		}
@@ -30,6 +32,9 @@ export default function Signup() {
 
 	return (
 		<div className="h-screen bg-gradient-to-br from-violet-600 to-purple-600 grid place-items-center">
+			<Header title="Sign Up" />
+
+			{/* Signup Form */}
 			<form
 				className="flex flex-col items-center justify-center px-6 py-12 rounded-xl bg-gray-50 w-80 shadow-2xl shadow-zinc-900"
 				onSubmit={handleSignup}
@@ -40,6 +45,28 @@ export default function Signup() {
 				{/* Text inputs */}
 				<div className="flex flex-col gap-10 w-full">
 					<div className="flex flex-col gap-4 w-full">
+						{/* Display Name */}
+						<div className="relative">
+							<input
+								id="display-name"
+								name="display-name"
+								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-violet-700 placeholder:text-transparent"
+								type="text"
+								placeholder="Display Name"
+								onChange={(e) =>
+									setData({ ...data, displayName: e.target.value })
+								}
+							/>
+							<label
+								htmlFor="display-name"
+								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base text-gray-400
+								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250"
+							>
+								Display Name
+							</label>
+						</div>
+
+						{/* Email Address */}
 						<div className="relative">
 							<input
 								id="email"
@@ -57,6 +84,8 @@ export default function Signup() {
 								Email Address
 							</label>
 						</div>
+
+						{/* Password */}
 						<div className="relative">
 							<input
 								id="password"

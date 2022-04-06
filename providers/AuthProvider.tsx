@@ -1,60 +1,27 @@
 import React, { useState, useCallback } from "react";
 import { useEffect, useContext, createContext } from "react";
-import { auth, providers } from "../config/firebase";
+import { auth } from "../config/firebase";
 import {
 	onAuthStateChanged,
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signOut,
-	UserCredential,
-	signInWithRedirect,
-	getRedirectResult,
-	GoogleAuthProvider,
-	FacebookAuthProvider,
-	TwitterAuthProvider,
 	signInWithPopup,
+	updateProfile,
 } from "firebase/auth";
-import { useRouter } from "next/router";
-
-interface SupportedAuthProvider
-	extends GoogleAuthProvider,
-		FacebookAuthProvider,
-		TwitterAuthProvider {}
-
-type RedirectCallback = () => Promise<boolean>;
-
-export type User = {
-	uid?: string | null;
-	email?: string | null;
-	displayName?: string | null;
-};
-
-export type AuthContextType = {
-	user?: User;
-	signup?: (email: string, password: string) => Promise<UserCredential>;
-	login?: (email?: string, password?: string) => Promise<UserCredential>;
-	loginWithProvider?: (
-		provider: SupportedAuthProvider
-	) => Promise<UserCredential>;
-	logout?: () => Promise<void>;
-};
+import { User, SupportedAuthProvider, AuthContextType } from "../types/auth";
 
 const AuthContext = createContext<AuthContextType>({});
 
 export const useAuth = () => useContext(AuthContext);
 
-type Props = {
+interface AuthProviderProps {
 	children: React.ReactNode;
-};
+}
 
-/**
- * Wrapper component for authentication
- */
-
-export default function AuthProvider({ children }: Props) {
+export default function AuthProvider({ children }: AuthProviderProps) {
 	const [user, setUser] = useState<User>(null);
 	const [loading, setLoading] = useState<boolean>(true);
-	const router = useRouter();
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -63,6 +30,7 @@ export default function AuthProvider({ children }: Props) {
 					uid: user.uid,
 					email: user.email,
 					displayName: user.displayName,
+					photoURL: user.photoURL,
 				});
 			} else {
 				setUser(null);
@@ -74,9 +42,13 @@ export default function AuthProvider({ children }: Props) {
 	}, []);
 
 	// create a new account
-	const signup = useCallback(async (email: string, password: string) => {
-		return await createUserWithEmailAndPassword(auth, email, password);
-	}, []);
+	const signup = useCallback(
+		async (email: string, password: string, displayName: string) => {
+			await createUserWithEmailAndPassword(auth, email, password);
+			return await updateProfile(auth.currentUser, { displayName });
+		},
+		[]
+	);
 
 	// general email/password login provider (not google, facebook, or twitter)
 	const login = useCallback(async (email: string, password: string) => {
@@ -91,6 +63,7 @@ export default function AuthProvider({ children }: Props) {
 		[]
 	);
 
+	// user logout
 	const logout = useCallback(async () => {
 		setUser(null);
 		await signOut(auth);
