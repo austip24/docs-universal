@@ -5,7 +5,7 @@ import { providers } from "../config/firebase";
 import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
-import { Header } from "../components/sections";
+import { Meta } from "../components/sections";
 
 interface Data {
 	email: string | null;
@@ -58,7 +58,7 @@ export default function Login() {
 
 	return (
 		<div className="h-screen bg-gradient-to-br from-violet-600 to-purple-600 grid place-items-center">
-			<Header title="Login" />
+			<Meta title="Login" />
 
 			{/* Login Form */}
 			<form

@@ -1,11 +1,11 @@
 import Head from "next/head";
 import React from "react";
 
-type HeaderProps = {
+interface MetaProps {
 	title?: string;
-};
+}
 
-export default function Header(props: HeaderProps) {
+export default function Meta(props: MetaProps) {
 	return (
 		<Head>
 			<meta charSet="UTF-8" />

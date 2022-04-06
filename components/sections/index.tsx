@@ -1,4 +1,4 @@
 import Footer from "./Footer";
-import Header from "./Header";
+import Meta from "./Meta";
 
-export { Footer, Header };
+export { Footer, Meta };
