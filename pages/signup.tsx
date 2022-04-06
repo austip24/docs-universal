@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../providers/AuthProvider";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Header } from "../components/sections";
+import { Meta } from "../components/sections";
 
 type Data = {
 	displayName: string;
@@ -31,8 +31,8 @@ export default function Signup() {
 	};
 
 	return (
-		<div className="h-screen bg-gradient-to-br from-violet-600 to-purple-600 grid place-items-center">
-			<Header title="Sign Up" />
+		<div className="h-screen bg-gradient-to-br from-indigo-600 to-violet-800 grid place-items-center">
+			<Meta title="Sign Up" />
 
 			{/* Signup Form */}
 			<form
@@ -40,7 +40,7 @@ export default function Signup() {
 				onSubmit={handleSignup}
 			>
 				{/* Form Header */}
-				<h1 className="text-4xl font-bold text-violet-700 mb-10">Sign Up</h1>
+				<h1 className="text-4xl font-bold text-indigo-700 mb-10">Sign Up</h1>
 
 				{/* Text inputs */}
 				<div className="flex flex-col gap-10 w-full">
@@ -50,7 +50,7 @@ export default function Signup() {
 							<input
 								id="display-name"
 								name="display-name"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-violet-700 focus:bg-violet-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
+								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-indigo-700 focus:bg-indigo-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
 								type="text"
 								placeholder="Display Name"
 								onChange={(e) =>
@@ -71,7 +71,7 @@ export default function Signup() {
 							<input
 								id="email"
 								name="email"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-violet-700 focus:bg-violet-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
+								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-indigo-700 focus:bg-indigo-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
 								type="text"
 								placeholder="Email Address"
 								onChange={(e) => setData({ ...data, email: e.target.value })}
@@ -90,7 +90,7 @@ export default function Signup() {
 							<input
 								id="password"
 								name="password"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-violet-700 focus:bg-violet-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
+								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-indigo-700 focus:bg-indigo-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
 								type="password"
 								placeholder="Password"
 								onChange={(e) => setData({ ...data, password: e.target.value })}
@@ -107,7 +107,7 @@ export default function Signup() {
 					</div>
 					<div className="flex flex-col justify-between text-center">
 						<button
-							className="w-full py-2 text-center font-bold bg-violet-500 text-gray-50 rounded-lg hover:bg-violet-600 hover:text-gray-50 focus:ring focus:ring-violet-600 focus:bg-violet-700 ring-offset-2 ring-offset-gray-50 transition ease-in-out"
+							className="w-full py-2 text-center font-bold bg-indigo-500 text-gray-50 rounded-lg hover:bg-indigo-600 hover:text-gray-50 focus:ring focus:ring-indigo-600 focus:bg-indigo-700 ring-offset-2 ring-offset-gray-50 transition ease-in-out"
 							type="submit"
 						>
 							Create Account
@@ -115,7 +115,7 @@ export default function Signup() {
 						<p className="mt-3 text-xs text-gray-700 font-semibold">
 							Already have an account?{" "}
 							<Link href="/login">
-								<a className="underline font-extrabold text-violet-700 hover:text-violet-900">
+								<a className="underline font-extrabold text-indigo-700 hover:text-indigo-900">
 									Log in
 								</a>
 							</Link>
