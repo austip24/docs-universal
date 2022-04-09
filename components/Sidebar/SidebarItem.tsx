@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 interface SidebarItemProps {
 	name?: string;
@@ -10,8 +9,8 @@ export default function SidebarItem(props: SidebarItemProps) {
 	const { name, Icon } = props;
 
 	return (
-		<div className="group flex items-center justify-left gap-4 pl-2 py-2 text-indigo-100 hover:bg-indigo-800 hover:text-gray-100 focus:bg-green-500 rounded-lg cursor-pointer transition ease-in-out duration-250">
-			<div className="">{Icon}</div>
+		<div className="group flex items-center justify-left gap-4 pl-2 py-2 text-indigo-100 hover:bg-indigo-900 hover:text-gray-100 cursor-pointer hover:scale-110 transition ease-in-out duration-250">
+			{Icon}
 			<span className="font-bold">{name}</span>
 		</div>
 	);
