@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 import { Meta } from "../components/sections";
+import { SupportedAuthProvider } from "../types/auth";
 
 interface Data {
 	email: string | null;
@@ -14,6 +15,7 @@ interface Data {
 
 export default function Login() {
 	const { user, login, loginWithProvider } = useAuth();
+	const [provider, setProvider] = useState<SupportedAuthProvider>(null);
 	const [data, setData] = useState<Data>({
 		email: "",
 		password: "",
@@ -25,44 +27,25 @@ export default function Login() {
 	}, [user, router]);
 
 	const handleLogin = async (e) => {
+		e.preventDefault();
 		try {
-			await login(data.email, data.password);
+			if (provider) {
+				await loginWithProvider(provider);
+			} else {
+				await login(data.email, data.password);
+			}
 		} catch (error) {
 			console.error(error);
 		}
 	};
-
-	const handleGoogleLogin = async (e) => {
-		try {
-			await loginWithProvider(providers.google);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	const handleFacebookLogin = async (e) => {
-		try {
-			await loginWithProvider(providers.facebook);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	const handleTwitterLogin = async (e) => {
-		try {
-			await loginWithProvider(providers.twitter);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
+	
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-indigo-600 to-violet-800 grid place-items-center">
+		<div className="min-h-screen bg-gradient-to-br from-indigo-600 to-violet-800 grid place-items-center w-full">
 			<Meta title="Login" />
 
 			{/* Login Form */}
 			<form
-				onSubmit={(e) => e.preventDefault()}
+				onSubmit={handleLogin}
 				className="flex flex-col items-center justify-center px-6 py-6 rounded-xl bg-gray-50 w-72 shadow-2xl shadow-zinc-900"
 			>
 				{/* Form Header */}
@@ -110,7 +93,7 @@ export default function Login() {
 					{/* Login with Email/Password button */}
 					<div className="flex flex-col justify-between text-center mt-2">
 						<button
-							onClick={handleLogin}
+							onClick={(e) => setProvider(null)}
 							className="w-full py-2 text-center font-bold bg-indigo-500 text-gray-50 rounded-lg hover:bg-indigo-600 hover:text-white focus:ring focus:ring-indigo-600 focus:bg-indigo-700 ring-offset-2 ring-offset-gray-50 transition ease-in-out"
 							type="submit"
 						>
@@ -131,7 +114,7 @@ export default function Login() {
 						</h2>
 						{/* Google Sign in */}
 						<button
-							onClick={handleGoogleLogin}
+							onClick={(e) => setProvider(providers.google)}
 							type="submit"
 							className="block group w-full text-center bg-[#EA4335] hover:bg-[#DE3A2C]  focus:ring focus:ring-[#EA4335] focus:bg-[#D22D1F] ring-offset-2 ring-offset-gray-50 rounded-lg py-2 px-4 text-gray-50 font-bold hover:text-white transition ease-in-out disabled:opacity-50 text-md relative
 							"
@@ -144,7 +127,7 @@ export default function Login() {
 						</button>
 						{/* Facebook Sign in*/}
 						<button
-							onClick={handleFacebookLogin}
+							onClick={(e) => setProvider(providers.facebook)}
 							type="submit"
 							className="block group w-full text-center bg-[#2F66DA] hover:bg-[#275FD1] rounded-lg py-2 px-4 text-gray-50 font-bold hover:text-white focus:ring focus:ring-[#2F66DA] focus:bg-[#1F59CA] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50 text-md rounded-l-lg relative"
 						>
@@ -158,7 +141,7 @@ export default function Login() {
 							{/* Twitter Sign in*/}
 							<button
 								disabled
-								onClick={handleTwitterLogin}
+								onClick={(e) => setProvider(providers.twitter)}
 								type="submit"
 								className="w-full bg-[#5F96FF] hover:bg-[#5A8Aff] rounded-lg py-2 px-4 text-gray-50 font-bold
 								hover:text-white focus:ring focus:ring-[#5F96FF] focus:bg-[#5F8FFF] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50"
