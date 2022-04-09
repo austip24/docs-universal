@@ -3,6 +3,7 @@ import { useAuth } from "../providers/AuthProvider";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Meta } from "../components/sections";
+import FormInput from "../components/forms/FormInput";
 
 type Data = {
 	displayName: string;
@@ -31,7 +32,7 @@ export default function Signup() {
 	};
 
 	return (
-		<div className="h-screen bg-gradient-to-br from-indigo-600 to-violet-800 grid place-items-center">
+		<div className="h-screen bg-gradient-to-br from-indigo-600 to-violet-800 grid place-items-center w-full">
 			<Meta title="Sign Up" />
 
 			{/* Signup Form */}
@@ -46,63 +47,29 @@ export default function Signup() {
 				<div className="flex flex-col gap-10 w-full">
 					<div className="flex flex-col gap-4 w-full">
 						{/* Display Name */}
-						<div className="relative">
-							<input
-								id="display-name"
-								name="display-name"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-indigo-700 focus:bg-indigo-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
-								type="text"
-								placeholder="Display Name"
-								onChange={(e) =>
-									setData({ ...data, displayName: e.target.value })
-								}
-							/>
-							<label
-								htmlFor="display-name"
-								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900"
-							>
-								Display Name
-							</label>
-						</div>
+						<FormInput
+							type="text"
+							name="display-name"
+							placeholder="Display name"
+							onInput={(e) => setData({ ...data, displayName: e.target.value })}
+						/>
 
 						{/* Email Address */}
-						<div className="relative">
-							<input
-								id="email"
-								name="email"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-indigo-700 focus:bg-indigo-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
-								type="text"
-								placeholder="Email Address"
-								onChange={(e) => setData({ ...data, email: e.target.value })}
-							/>
-							<label
-								htmlFor="email"
-								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900"
-							>
-								Email Address
-							</label>
-						</div>
+						<FormInput
+							type="text"
+							name="email"
+							placeholder="Email Address"
+							onInput={(e) => setData({ ...data, email: e.target.value })}
+						/>
 
 						{/* Password */}
-						<div className="relative">
-							<input
-								id="password"
-								name="password"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-indigo-700 focus:bg-indigo-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
-								type="password"
-								placeholder="Password"
-								onChange={(e) => setData({ ...data, password: e.target.value })}
-							/>
-							<label
-								htmlFor="password"
-								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900"
-							>
-								Password
-							</label>
-						</div>
+						<FormInput
+							type="password"
+							name="password"
+							placeholder="Password"
+							onInput={(e) => setData({ ...data, password: e.target.value })}
+						/>
+
 						{/* Buttons */}
 					</div>
 					<div className="flex flex-col justify-between text-center">

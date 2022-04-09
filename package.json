@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.5.0",
+		"draft-js": "^0.11.7",
 		"firebase": "^9.6.10",
 		"next": "12.1.4",
 		"react": "18.0.0",
