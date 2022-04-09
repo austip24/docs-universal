@@ -14,8 +14,6 @@ export default function Meta(props: MetaProps) {
 			<meta charSet="UTF-8" />
 			<meta content="IE=edge" />
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-			<meta property="og:title" content={title} key="title" />
-
 			{/* Add page title */}
 			{title ? (
 				<>
