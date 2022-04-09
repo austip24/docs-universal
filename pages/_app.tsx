@@ -3,6 +3,8 @@ import AuthProvider from "../providers/AuthProvider";
 import { useRouter } from "next/router";
 import ProtectedRoute from "../providers/ProtectedRoute";
 import "../styles/globals.css";
+import Sidebar from "../components/Sidebar";
+import Layout from "../components/Layout";
 
 const noAuthRequired = ["/login", "/signup"];
 
@@ -11,13 +13,16 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 
 	return (
 		<AuthProvider>
-			{noAuthRequired.includes(router.pathname) ? (
-				<Component {...pageProps} />
-			) : (
-				<ProtectedRoute>
+			<Layout>
+				{noAuthRequired.includes(router.pathname) ? (
 					<Component {...pageProps} />
-				</ProtectedRoute>
-			)}
+				) : (
+					<ProtectedRoute>
+						<Sidebar />
+						<Component {...pageProps} />
+					</ProtectedRoute>
+				)}
+			</Layout>
 		</AuthProvider>
 	);
 }
