@@ -7,6 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaFacebookF } from "react-icons/fa";
 import { Meta } from "../components/sections";
 import { SupportedAuthProvider } from "../types/auth";
+import FormInput from "../components/forms/FormInput";
 
 interface Data {
 	email: string | null;
@@ -38,7 +39,7 @@ export default function Login() {
 			console.error(error);
 		}
 	};
-	
+
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-indigo-600 to-violet-800 grid place-items-center w-full">
 			<Meta title="Login" />
@@ -54,40 +55,18 @@ export default function Login() {
 				{/* Text inputs */}
 				<div className="flex flex-col gap-4 w-full">
 					<div className="flex flex-col gap-4 w-full">
-						<div className="relative">
-							<input
-								id="email"
-								name="email"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-indigo-700 focus:bg-indigo-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
-								type="text"
-								placeholder="Email Address"
-								onChange={(e) => setData({ ...data, email: e.target.value })}
-							/>
-							<label
-								htmlFor="email"
-								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900"
-							>
-								Email Address
-							</label>
-						</div>
-						<div className="relative">
-							<input
-								id="password"
-								name="password"
-								className="peer w-full bg-gray-50 border-0 border-b-2 border-b-gray-400 focus:ring-0 focus:outline-0 focus:border-b-indigo-700 focus:bg-indigo-100 placeholder:text-transparent text-sm transition ease-in-out rounded-t-md"
-								type="password"
-								placeholder="Password"
-								onChange={(e) => setData({ ...data, password: e.target.value })}
-							/>
-							<label
-								htmlFor="password"
-								className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400
-								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900"
-							>
-								Password
-							</label>
-						</div>
+						<FormInput
+							type="text"
+							name="email"
+							placeholder="Email Address"
+							onInput={(e) => setData({ ...data, email: e.target.value })}
+						/>
+						<FormInput
+							type="password"
+							name="password"
+							placeholder="Password"
+							onInput={(e) => setData({ ...data, password: e.target.value })}
+						/>
 					</div>
 
 					{/* Login with Email/Password button */}
