@@ -23,6 +23,9 @@ export default function Login() {
 	});
 	const router = useRouter();
 
+	/**
+	 * Redirect to homepage if user is already logged in
+	 */
 	useEffect(() => {
 		if (user) router.replace("/");
 	}, [user, router]);
@@ -59,13 +62,20 @@ export default function Login() {
 							type="text"
 							name="email"
 							placeholder="Email Address"
-							onInput={(e) => setData({ ...data, email: e.target.value })}
+							onInput={(e) =>
+								setData((currData) => ({ ...currData, email: e.target.value }))
+							}
 						/>
 						<FormInput
 							type="password"
 							name="password"
 							placeholder="Password"
-							onInput={(e) => setData({ ...data, password: e.target.value })}
+							onInput={(e) =>
+								setData((currData) => ({
+									...currData,
+									password: e.target.value,
+								}))
+							}
 						/>
 					</div>
 
@@ -106,6 +116,7 @@ export default function Login() {
 						</button>
 						{/* Facebook Sign in*/}
 						<button
+							disabled
 							onClick={(e) => setProvider(providers.facebook)}
 							type="submit"
 							className="block group w-full text-center bg-[#2F66DA] hover:bg-[#275FD1] rounded-lg py-2 px-4 text-gray-50 font-bold hover:text-white focus:ring focus:ring-[#2F66DA] focus:bg-[#1F59CA] ring-offset-2 ring-offset-gray-50 transition ease-in-out disabled:opacity-50 text-md rounded-l-lg relative"

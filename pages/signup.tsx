@@ -51,7 +51,12 @@ export default function Signup() {
 							type="text"
 							name="display-name"
 							placeholder="Display name"
-							onInput={(e) => setData({ ...data, displayName: e.target.value })}
+							onInput={(e) =>
+								setData((currData) => ({
+									...currData,
+									displayName: e.target.value,
+								}))
+							}
 						/>
 
 						{/* Email Address */}
@@ -59,7 +64,9 @@ export default function Signup() {
 							type="text"
 							name="email"
 							placeholder="Email Address"
-							onInput={(e) => setData({ ...data, email: e.target.value })}
+							onInput={(e) =>
+								setData((currData) => ({ ...currData, email: e.target.value }))
+							}
 						/>
 
 						{/* Password */}
@@ -67,7 +74,12 @@ export default function Signup() {
 							type="password"
 							name="password"
 							placeholder="Password"
-							onInput={(e) => setData({ ...data, password: e.target.value })}
+							onInput={(e) =>
+								setData((currData) => ({
+									...currData,
+									password: e.target.value,
+								}))
+							}
 						/>
 
 						{/* Buttons */}
