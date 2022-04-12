@@ -6,7 +6,7 @@ interface MetaProps {
 	title?: string;
 }
 
-export default function Meta(props: MetaProps) {
+const Meta: React.FC<MetaProps> = (props) => {
 	const { title } = props;
 
 	return (
@@ -31,4 +31,6 @@ export default function Meta(props: MetaProps) {
 			{props.children}
 		</Head>
 	);
-}
+};
+
+export default Meta;

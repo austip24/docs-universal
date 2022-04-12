@@ -4,6 +4,8 @@ interface LayoutProps {
 	children: React.ReactElement;
 }
 
-export default function Layout(props: LayoutProps) {
+const Layout: React.FC<LayoutProps> = (props) => {
 	return <div className="flex">{props.children}</div>;
-}
+};
+
+export default Layout;

@@ -7,7 +7,7 @@ interface FormInputProps {
 	onInput: (e: any) => void;
 }
 
-export default function FormInput(props: FormInputProps) {
+const FormInput: React.FC<FormInputProps> = (props) => {
 	return (
 		<div className="relative">
 			<input
@@ -27,4 +27,6 @@ export default function FormInput(props: FormInputProps) {
 			</label>
 		</div>
 	);
-}
+};
+
+export default FormInput;

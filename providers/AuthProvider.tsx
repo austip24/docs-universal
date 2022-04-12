@@ -19,7 +19,7 @@ interface AuthProviderProps {
 	children: React.ReactNode;
 }
 
-export default function AuthProvider({ children }: AuthProviderProps) {
+const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [user, setUser] = useState<User>(null);
 	const [loading, setLoading] = useState<boolean>(true);
 
@@ -76,4 +76,6 @@ export default function AuthProvider({ children }: AuthProviderProps) {
 			{loading ? null : children}
 		</AuthContext.Provider>
 	);
-}
+};
+
+export default AuthProvider;

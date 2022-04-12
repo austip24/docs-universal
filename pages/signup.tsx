@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { NextPage } from "next";
 import { useAuth } from "../providers/AuthProvider";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,7 +12,7 @@ type Data = {
 	password: string;
 };
 
-export default function Signup() {
+const Signup: NextPage = () => {
 	const { signup } = useAuth();
 	const [data, setData] = useState<Data>({
 		displayName: "",
@@ -104,4 +105,6 @@ export default function Signup() {
 			</form>
 		</div>
 	);
-}
+};
+
+export default Signup;

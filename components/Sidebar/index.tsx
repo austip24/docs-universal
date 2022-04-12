@@ -6,7 +6,7 @@ import Link from "next/link";
 
 interface SidebarProps {}
 
-export default function Sidebar(props: SidebarProps) {
+const Sidebar: React.FC<SidebarProps> = (props) => {
 	return (
 		<div className="flex flex-col min-h-screen w-40 bg-slate-900 p-2 gap-1 divide-indigo-700">
 			<Link href="/">
@@ -29,4 +29,6 @@ export default function Sidebar(props: SidebarProps) {
 			<SidebarItem Icon={<FaHome fontSize={30} />} name="Home" />
 		</div>
 	);
-}
+};
+
+export default Sidebar;

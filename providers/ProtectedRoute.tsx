@@ -6,7 +6,7 @@ interface ProtectedRouteProps {
 	children: React.ReactNode;
 }
 
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 	const { user } = useAuth();
 	const router = useRouter();
 
@@ -17,4 +17,6 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 	}, [user, router]);
 
 	return <>{user ? children : null}</>;
-}
+};
+
+export default ProtectedRoute;

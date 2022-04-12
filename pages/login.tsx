@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { NextPage } from "next";
 import { useAuth } from "../providers/AuthProvider";
 import { providers } from "../config/firebase";
 import { useRouter } from "next/router";
@@ -14,7 +15,7 @@ interface Data {
 	password: string | null;
 }
 
-export default function Login() {
+const Login: NextPage = () => {
 	const { user, login, loginWithProvider } = useAuth();
 	const [provider, setProvider] = useState<SupportedAuthProvider>(null);
 	const [data, setData] = useState<Data>({
@@ -144,4 +145,6 @@ export default function Login() {
 			</form>
 		</div>
 	);
-}
+};
+
+export default Login;

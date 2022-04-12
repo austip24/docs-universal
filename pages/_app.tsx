@@ -1,3 +1,4 @@
+import React from "react";
 import type { AppProps } from "next/app";
 import AuthProvider from "../providers/AuthProvider";
 import { useRouter } from "next/router";
@@ -8,7 +9,7 @@ import Layout from "../components/Layout";
 
 const noAuthRequired = ["/login", "/signup"];
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 	const router = useRouter();
 
 	return (
@@ -25,4 +26,6 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 			</Layout>
 		</AuthProvider>
 	);
-}
+};
+
+export default MyApp;

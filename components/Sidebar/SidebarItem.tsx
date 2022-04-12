@@ -5,7 +5,7 @@ interface SidebarItemProps {
 	Icon?: JSX.Element;
 }
 
-export default function SidebarItem(props: SidebarItemProps) {
+const SidebarItem: React.FC<SidebarItemProps> = (props) => {
 	const { name, Icon } = props;
 
 	return (
@@ -14,4 +14,6 @@ export default function SidebarItem(props: SidebarItemProps) {
 			<span className="font-bold">{name}</span>
 		</div>
 	);
-}
+};
+
+export default SidebarItem;

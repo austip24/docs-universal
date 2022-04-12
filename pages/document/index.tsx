@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { NextPage } from "next";
 import { Editor, EditorState } from "draft-js";
 
-export default function Document() {
+const Document: NextPage = () => {
 	const [editorState, setEditorState] = useState(() =>
 		EditorState.createEmpty()
 	);
@@ -10,4 +11,6 @@ export default function Document() {
 			<Editor editorState={editorState} onChange={setEditorState} />
 		</div>
 	);
-}
+};
+
+export default Document;

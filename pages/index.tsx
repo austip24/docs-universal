@@ -1,15 +1,16 @@
+import { useEffect } from "react";
+import { NextPage } from "next";
 import { Footer, Meta } from "../components/sections";
 import { useAuth } from "../providers/AuthProvider";
-import { useEffect } from "react";
 
-export default function Home() {
+const Home: NextPage = () => {
 	const { user, logout } = useAuth();
 
 	// DEBUG
-	useEffect(() => {
-		console.log("User: ");
-		console.dir(user);
-	}, [user]);
+	// useEffect(() => {
+	// 	console.log("User: ");
+	// 	console.dir(user);
+	// }, [user]);
 
 	const handleLogout = async (e) => {
 		await logout();
@@ -26,4 +27,6 @@ export default function Home() {
 			</button>
 		</div>
 	);
-}
+};
+
+export default Home;
