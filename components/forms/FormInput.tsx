@@ -20,8 +20,7 @@ const FormInput: React.FC<FormInputProps> = (props) => {
 			/>
 			<label
 				htmlFor={props.name}
-				className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 select-none
-								peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900"
+				className="absolute -top-2.5 left-3 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 select-none peer-placeholder-shown:top-2 peer-placeholder-shown:left-3 transition-all duration-250 text-gray-900 cursor-text"
 			>
 				{props.placeholder}
 			</label>
