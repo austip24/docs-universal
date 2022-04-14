@@ -51,7 +51,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	);
 
 	// general email/password login provider (not google, facebook, or twitter)
-	const login = useCallback(async (email: string, password: string) => {
+	const loginWithEmailAndPassword = useCallback(async (email: string, password: string) => {
 		return await signInWithEmailAndPassword(auth, email, password);
 	}, []);
 
@@ -71,7 +71,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
 	return (
 		<AuthContext.Provider
-			value={{ user, signup, login, loginWithProvider, logout }}
+			value={{ user, signup, loginWithEmailAndPassword, loginWithProvider, logout }}
 		>
 			{loading ? null : children}
 		</AuthContext.Provider>

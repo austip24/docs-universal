@@ -25,7 +25,7 @@ export interface AuthContextType {
 		password: string,
 		displayName: string
 	) => Promise<void>;
-	login?: (email?: string, password?: string) => Promise<UserCredential>;
+	loginWithEmailAndPassword?: (email?: string, password?: string) => Promise<UserCredential>;
 	loginWithProvider?: (
 		provider: SupportedAuthProvider
 	) => Promise<UserCredential>;

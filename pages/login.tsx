@@ -16,7 +16,7 @@ interface Data {
 }
 
 const Login: NextPage = () => {
-	const { user, login, loginWithProvider } = useAuth();
+	const { user, loginWithEmailAndPassword, loginWithProvider } = useAuth();
 	const [provider, setProvider] = useState<SupportedAuthProvider>(null);
 	const [data, setData] = useState<Data>({
 		email: "",
@@ -37,7 +37,7 @@ const Login: NextPage = () => {
 			if (provider) {
 				await loginWithProvider(provider);
 			} else {
-				await login(data.email, data.password);
+				await loginWithEmailAndPassword(data.email, data.password);
 			}
 		} catch (error) {
 			console.error(error);
