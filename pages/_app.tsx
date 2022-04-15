@@ -4,7 +4,6 @@ import AuthProvider from "../providers/AuthProvider";
 import { useRouter } from "next/router";
 import ProtectedRoute from "../providers/ProtectedRoute";
 import "../styles/globals.css";
-import Sidebar from "../components/Sidebar";
 import Layout from "../components/Layout";
 
 const noAuthRequired = ["/login", "/signup"];
@@ -19,7 +18,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 					<Component {...pageProps} />
 				) : (
 					<ProtectedRoute>
-						<Sidebar />
 						<Component {...pageProps} />
 					</ProtectedRoute>
 				)}
