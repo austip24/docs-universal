@@ -18,16 +18,19 @@ export interface SupportedAuthProvider
 		FacebookAuthProvider,
 		TwitterAuthProvider {}
 
-export interface AuthContextType {
+export type AuthContextType = {
 	user?: User;
 	signup?: (
 		email: string,
 		password: string,
 		displayName: string
 	) => Promise<void>;
-	loginWithEmailAndPassword?: (email?: string, password?: string) => Promise<UserCredential>;
+	loginWithEmailAndPassword?: (
+		email?: string,
+		password?: string
+	) => Promise<UserCredential>;
 	loginWithProvider?: (
 		provider: SupportedAuthProvider
 	) => Promise<UserCredential>;
 	logout?: () => Promise<void>;
-}
+};
