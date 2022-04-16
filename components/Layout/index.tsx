@@ -5,7 +5,7 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = (props) => {
-	return <div className="flex">{props.children}</div>;
+	return <div className="flex bg-slate-900 min-h-screen">{props.children}</div>;
 };
 
 export default Layout;
