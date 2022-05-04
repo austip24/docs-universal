@@ -8,7 +8,7 @@ const Search: React.FC<SearchProps> = (props) => {
 			<input
 				type="search"
 				placeholder="Search..."
-				className="w-full rounded-lg bg-indigo-100 focus:bg-indigo-200 text-gray-900 border-none focus:ring-2 focus:ring-indigo-400 placeholder-gray-600 text-md"
+				className="w-full rounded-lg bg-indigo-50 focus:bg-indigo-100 text-gray-900 border-none focus:ring-0 placeholder-gray-600 text-md"
 			/>
 		</div>
 	);
